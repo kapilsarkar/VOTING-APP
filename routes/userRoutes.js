@@ -77,4 +77,29 @@ router.get("/profile", jwtAuthMiddleware, async (req, res) => {
   }
 });
 
+//Routes for password update
+router.put("/profile/password", jwtAuthMiddleware, async (req, res) => {
+  try {
+    const userId = req.user; //Extract the id from the token.
+    const { currentPassword, newPassword } = req.body; //Extract the current and new Passwords form request body.
+
+    //Find the user bu userID
+    const user = await User.findById(userId);
+
+    //If password does not match return error
+    if (!(await user.comparePassword(currentPassword))) {
+      return res.status(401).json({ error: "Invalid username and password" });
+    }
+
+    //Update the user's password
+    user.password = newPassword;
+    await user.save();
+    console.log("User Password Data Updated");
+    res.status(200).json({ message: "Password Updated" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
