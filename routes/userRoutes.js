@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("./../models/user");
 const { jwtAuthMiddleware, generateToken } = require("./../jwt");
+const { use } = require("passport");
 
 //POST router to add a User
 router.post("/signup", async (req, res) => {
