@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const User = require("./../models/user");
-const { jwtAuthMiddleware, generateToken } = require("./../jwt");
+const User = require('./../models/user');
+const {jwtAuthMiddleware, generateToken} = require('./../jwt');
 const { use } = require("passport");
 
 //POST router to add a User
@@ -66,14 +66,12 @@ router.get("/profile", jwtAuthMiddleware, async (req, res) => {
   try {
     const userData = req.user;
 
-    // Extract user id from decoded token
     const userId = userData.id;
-
-    // Find the user by id
     const user = await User.findById(userId);
+
     res.status(200).json({ user });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

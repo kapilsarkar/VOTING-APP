@@ -1,6 +1,6 @@
-const express = require('express')
-const app = express()
-const db = require('./db')
+const express = require("express");
+const app = express();
+const db = require("./db");
 require("dotenv").config();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -12,12 +12,11 @@ app.get("/", (req, res) => {
 });
 
 //Import the Router Files
-const userRoutes = require('./routes/userRoutes');
-
+const userRoutes = require("./routes/userRoutes");
 
 //Use the router
-app.use('/user',userRoutes)
+app.use("/user", userRoutes);
 
 app.listen(PORT, () => {
-    console.log("Server is Listening at port:5000");
-  });
+  console.log("Server is Listening at port:5000");
+});
