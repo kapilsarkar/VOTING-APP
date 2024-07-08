@@ -7,8 +7,7 @@ app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 5000;
 
-const jwtAuthMiddleware = require('./jwt');
-
+const jwtAuthMiddleware = require("./jwt");
 
 app.get("/", (req, res) => {
   res.send("Welcome to Online Voting Application");
@@ -16,12 +15,12 @@ app.get("/", (req, res) => {
 
 //Import the Router Files
 const userRoutes = require("./routes/userRoutes");
-const candidateRoutes = require('./routes/candidateRoute');
+const candidateRoutes = require("./routes/candidateRoutes");
+const { use } = require("passport");
 
 //Use the router
 app.use("/user", userRoutes);
-app.use('./candidate',jwtAuthMiddleware,candidateRoutes);
-
+app.use("/candidate", candidateRoutes);
 
 app.listen(PORT, () => {
   console.log("Server is Listening at port:5000");
